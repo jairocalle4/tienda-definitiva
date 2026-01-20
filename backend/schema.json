@@ -1,0 +1,679 @@
+{
+  "ArqueoCaja": [
+    {
+      "column": "IdArqueo",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "Fecha",
+      "type": "date",
+      "nullable": false
+    },
+    {
+      "column": "Turno",
+      "type": "tinyint",
+      "nullable": true
+    },
+    {
+      "column": "IdEncargado",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "SaldoInicial",
+      "type": "decimal",
+      "nullable": true
+    },
+    {
+      "column": "TotalVentas",
+      "type": "decimal",
+      "nullable": true
+    },
+    {
+      "column": "TotalEgresos",
+      "type": "decimal",
+      "nullable": true
+    },
+    {
+      "column": "GananciaNeta",
+      "type": "decimal",
+      "nullable": true
+    },
+    {
+      "column": "ResultadoEsperado",
+      "type": "decimal",
+      "nullable": true
+    },
+    {
+      "column": "EfectivoTotal",
+      "type": "decimal",
+      "nullable": true
+    },
+    {
+      "column": "UtilidadDia",
+      "type": "decimal",
+      "nullable": true
+    },
+    {
+      "column": "Observaciones",
+      "type": "text",
+      "nullable": true
+    }
+  ],
+  "AspNetRoles": [
+    {
+      "column": "Id",
+      "type": "nvarchar",
+      "nullable": false
+    },
+    {
+      "column": "Name",
+      "type": "nvarchar",
+      "nullable": false
+    }
+  ],
+  "AspNetUserClaims": [
+    {
+      "column": "Id",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "UserId",
+      "type": "nvarchar",
+      "nullable": false
+    },
+    {
+      "column": "ClaimType",
+      "type": "nvarchar",
+      "nullable": true
+    },
+    {
+      "column": "ClaimValue",
+      "type": "nvarchar",
+      "nullable": true
+    }
+  ],
+  "AspNetUserLogins": [
+    {
+      "column": "LoginProvider",
+      "type": "nvarchar",
+      "nullable": false
+    },
+    {
+      "column": "ProviderKey",
+      "type": "nvarchar",
+      "nullable": false
+    },
+    {
+      "column": "UserId",
+      "type": "nvarchar",
+      "nullable": false
+    }
+  ],
+  "AspNetUserRoles": [
+    {
+      "column": "UserId",
+      "type": "nvarchar",
+      "nullable": false
+    },
+    {
+      "column": "RoleId",
+      "type": "nvarchar",
+      "nullable": false
+    }
+  ],
+  "AspNetUsers": [
+    {
+      "column": "Id",
+      "type": "nvarchar",
+      "nullable": false
+    },
+    {
+      "column": "Email",
+      "type": "nvarchar",
+      "nullable": true
+    },
+    {
+      "column": "EmailConfirmed",
+      "type": "bit",
+      "nullable": false
+    },
+    {
+      "column": "PasswordHash",
+      "type": "nvarchar",
+      "nullable": true
+    },
+    {
+      "column": "SecurityStamp",
+      "type": "nvarchar",
+      "nullable": true
+    },
+    {
+      "column": "PhoneNumber",
+      "type": "nvarchar",
+      "nullable": true
+    },
+    {
+      "column": "PhoneNumberConfirmed",
+      "type": "bit",
+      "nullable": false
+    },
+    {
+      "column": "TwoFactorEnabled",
+      "type": "bit",
+      "nullable": false
+    },
+    {
+      "column": "LockoutEndDateUtc",
+      "type": "datetime",
+      "nullable": true
+    },
+    {
+      "column": "LockoutEnabled",
+      "type": "bit",
+      "nullable": false
+    },
+    {
+      "column": "AccessFailedCount",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "UserName",
+      "type": "nvarchar",
+      "nullable": false
+    }
+  ],
+  "Categorias": [
+    {
+      "column": "Id",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "Nombre",
+      "type": "varchar",
+      "nullable": false
+    },
+    {
+      "column": "EsActivo",
+      "type": "bit",
+      "nullable": false
+    }
+  ],
+  "Clientes": [
+    {
+      "column": "Id",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "Nombre",
+      "type": "nvarchar",
+      "nullable": false
+    },
+    {
+      "column": "CedulaRuc",
+      "type": "nvarchar",
+      "nullable": true
+    },
+    {
+      "column": "Telefono",
+      "type": "nvarchar",
+      "nullable": true
+    },
+    {
+      "column": "Direccion",
+      "type": "nvarchar",
+      "nullable": true
+    },
+    {
+      "column": "Email",
+      "type": "nvarchar",
+      "nullable": true
+    },
+    {
+      "column": "FechaRegistro",
+      "type": "datetime",
+      "nullable": true
+    }
+  ],
+  "ConfiguracionEmpresa": [
+    {
+      "column": "Id",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "NombreComercial",
+      "type": "nvarchar",
+      "nullable": false
+    },
+    {
+      "column": "RUC",
+      "type": "nvarchar",
+      "nullable": false
+    },
+    {
+      "column": "Direccion",
+      "type": "nvarchar",
+      "nullable": false
+    },
+    {
+      "column": "Telefono",
+      "type": "nvarchar",
+      "nullable": true
+    },
+    {
+      "column": "Email",
+      "type": "nvarchar",
+      "nullable": true
+    },
+    {
+      "column": "MensajeLegal",
+      "type": "nvarchar",
+      "nullable": true
+    },
+    {
+      "column": "FechaRegistro",
+      "type": "datetime",
+      "nullable": true
+    },
+    {
+      "column": "AutorizacionSRI",
+      "type": "varchar",
+      "nullable": true
+    },
+    {
+      "column": "Establecimiento",
+      "type": "varchar",
+      "nullable": false
+    },
+    {
+      "column": "PuntoEmision",
+      "type": "varchar",
+      "nullable": false
+    },
+    {
+      "column": "SecuencialActual",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "FechaCaducidadAutorizacion",
+      "type": "date",
+      "nullable": true
+    },
+    {
+      "column": "RazonSocial",
+      "type": "nvarchar",
+      "nullable": true
+    }
+  ],
+  "DetalleEfectivo": [
+    {
+      "column": "IdDetalle",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "IdArqueo",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "Denominacion",
+      "type": "decimal",
+      "nullable": false
+    },
+    {
+      "column": "Cantidad",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "Total",
+      "type": "decimal",
+      "nullable": true
+    }
+  ],
+  "DetalleEntradaInventarios": [
+    {
+      "column": "Id",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "EntradaInventarioId",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "ProductoId",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "Cantidad",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "CostoUnitario",
+      "type": "decimal",
+      "nullable": true
+    }
+  ],
+  "DetalleVentas": [
+    {
+      "column": "Id",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "VentaId",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "ProductoId",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "Cantidad",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "Subtotal",
+      "type": "decimal",
+      "nullable": false
+    },
+    {
+      "column": "PrecioUnitarioVenta",
+      "type": "decimal",
+      "nullable": false
+    }
+  ],
+  "EgresoGasto": [
+    {
+      "column": "IdEgreso",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "IdArqueo",
+      "type": "int",
+      "nullable": true
+    },
+    {
+      "column": "Descripcion",
+      "type": "varchar",
+      "nullable": true
+    },
+    {
+      "column": "Monto",
+      "type": "decimal",
+      "nullable": true
+    },
+    {
+      "column": "Fecha",
+      "type": "datetime",
+      "nullable": false
+    }
+  ],
+  "Empleado": [
+    {
+      "column": "IdEmpleado",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "Nombre",
+      "type": "varchar",
+      "nullable": false
+    },
+    {
+      "column": "Cargo",
+      "type": "varchar",
+      "nullable": true
+    },
+    {
+      "column": "Estado",
+      "type": "bit",
+      "nullable": false
+    }
+  ],
+  "EntradaInventarios": [
+    {
+      "column": "Id",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "FechaEntrada",
+      "type": "datetime",
+      "nullable": false
+    },
+    {
+      "column": "EmpleadoId",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "Observacion",
+      "type": "varchar",
+      "nullable": true
+    },
+    {
+      "column": "TotalProductos",
+      "type": "int",
+      "nullable": false
+    }
+  ],
+  "ProductoImagenes": [
+    {
+      "column": "IdImagen",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "IdProducto",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "UrlImagen",
+      "type": "nvarchar",
+      "nullable": false
+    },
+    {
+      "column": "Orden",
+      "type": "int",
+      "nullable": true
+    },
+    {
+      "column": "EsPortada",
+      "type": "bit",
+      "nullable": true
+    }
+  ],
+  "Productos": [
+    {
+      "column": "Id",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "Nombre",
+      "type": "varchar",
+      "nullable": false
+    },
+    {
+      "column": "CategoriaId",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "Stock",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "Precio",
+      "type": "decimal",
+      "nullable": false
+    },
+    {
+      "column": "FechaCreacion",
+      "type": "datetime",
+      "nullable": false
+    },
+    {
+      "column": "EsActivo",
+      "type": "bit",
+      "nullable": false
+    },
+    {
+      "column": "Descripcion",
+      "type": "nvarchar",
+      "nullable": true
+    },
+    {
+      "column": "SubcategoriaId",
+      "type": "int",
+      "nullable": true
+    },
+    {
+      "column": "FotoUrl",
+      "type": "nvarchar",
+      "nullable": true
+    },
+    {
+      "column": "Costo",
+      "type": "decimal",
+      "nullable": false
+    },
+    {
+      "column": "UrlVideo",
+      "type": "nvarchar",
+      "nullable": true
+    }
+  ],
+  "Subcategorias": [
+    {
+      "column": "Id",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "Nombre",
+      "type": "varchar",
+      "nullable": false
+    },
+    {
+      "column": "CategoriaId",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "EsActivo",
+      "type": "bit",
+      "nullable": false
+    }
+  ],
+  "sysdiagrams": [
+    {
+      "column": "name",
+      "type": "sysname",
+      "nullable": false
+    },
+    {
+      "column": "principal_id",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "diagram_id",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "version",
+      "type": "int",
+      "nullable": true
+    },
+    {
+      "column": "definition",
+      "type": "varbinary",
+      "nullable": true
+    }
+  ],
+  "VentaIngreso": [
+    {
+      "column": "IdVenta",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "IdArqueo",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "Categoria",
+      "type": "varchar",
+      "nullable": true
+    },
+    {
+      "column": "Monto",
+      "type": "decimal",
+      "nullable": true
+    }
+  ],
+  "Ventas": [
+    {
+      "column": "Id",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "FechaVenta",
+      "type": "datetime",
+      "nullable": false
+    },
+    {
+      "column": "EmpleadoId",
+      "type": "int",
+      "nullable": false
+    },
+    {
+      "column": "Total",
+      "type": "decimal",
+      "nullable": false
+    },
+    {
+      "column": "Observacion",
+      "type": "varchar",
+      "nullable": true
+    },
+    {
+      "column": "ClienteId",
+      "type": "int",
+      "nullable": true
+    },
+    {
+      "column": "NumeroNota",
+      "type": "nvarchar",
+      "nullable": true
+    },
+    {
+      "column": "EsAnulada",
+      "type": "bit",
+      "nullable": false
+    }
+  ]
+}
