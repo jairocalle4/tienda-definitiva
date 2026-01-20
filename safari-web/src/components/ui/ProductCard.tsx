@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ShoppingCart, Play, AlertCircle, TrendingUp } from 'lucide-react';
+import { Play, AlertCircle, TrendingUp } from 'lucide-react';
 import type { Product } from '../../types';
 import { formatPrice } from '../../utils/format';
 import { useCartStore } from '../../store/useCartStore';
