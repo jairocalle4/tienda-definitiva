@@ -1,22 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingCart, Search } from 'lucide-react';
+import { ShoppingCart, Search, Info } from 'lucide-react';
 import { useCartStore } from '../../store/useCartStore';
-import { api } from '../../services/api';
 import { motion, useAnimation } from 'framer-motion';
 
 export const Navbar: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [appName, setAppName] = useState('Safari Web');
     const cartCount = useCartStore((state) => state.getCartCount());
     const navigate = useNavigate();
     const controls = useAnimation();
-
-    useEffect(() => {
-        api.getConfig().then(config => {
-            if (config.appName) setAppName(config.appName);
-        });
-    }, []);
 
     useEffect(() => {
         if (cartCount > 0) {
@@ -38,12 +30,14 @@ export const Navbar: React.FC = () => {
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
             <div className="container mx-auto px-4 h-16 flex items-center justify-between gap-4">
                 {/* Logo */}
-                <Link to="/" className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
-                        {appName.charAt(0)}
+                <Link to="/" className="flex items-center gap-1 group">
+                    <div className="relative flex items-center justify-center">
+                        <span className="text-3xl font-black bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-600 bg-clip-text text-transparent tracking-tighter group-hover:bg-gradient-to-l transition-all duration-500 bg-[length:200%_auto]">
+                            JC
+                        </span>
                     </div>
-                    <span className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent hidden sm:block">
-                        {appName}
+                    <span className="text-xl font-bold text-gray-700 tracking-widest pl-1 border-l-2 border-gray-300 ml-1 h-6 flex items-center">
+                        TECH
                     </span>
                 </Link>
 
@@ -51,16 +45,30 @@ export const Navbar: React.FC = () => {
                 <form onSubmit={handleSearch} className="flex-1 max-w-xl relative">
                     <input
                         type="text"
-                        placeholder="Buscar productos..."
+                        placeholder="Buscar..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2 bg-gray-100 border border-transparent focus:bg-white focus:border-indigo-500 rounded-full outline-none transition-all duration-200 text-sm"
+                        className="w-full pl-4 pr-12 py-2 bg-gray-100 border border-transparent focus:bg-white focus:border-indigo-500 rounded-full outline-none transition-all duration-200 text-sm shadow-inner"
                     />
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                    <button
+                        type="submit"
+                        className="absolute right-1 top-1/2 -translate-y-1/2 p-1.5 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition-colors shadow-sm flex items-center justify-center group"
+                        title="Buscar"
+                    >
+                        <Search size={16} className="group-hover:scale-110 transition-transform" />
+                    </button>
                 </form>
 
                 {/* Actions */}
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3">
+                    <Link
+                        to="/about"
+                        className="p-2 text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition-colors"
+                        title="Acerca de Nosotros"
+                    >
+                        <Info size={24} />
+                    </Link>
+
                     <Link
                         to="/cart"
                         id="cart-icon-container"
