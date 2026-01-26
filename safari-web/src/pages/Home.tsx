@@ -13,10 +13,12 @@ export const Home: React.FC = () => {
 
     const [products, setProducts] = useState<Product[]>([]);
     const [categories, setCategories] = useState<Category[]>([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
+                // setLoading(true); // Already true by default
                 const [productsData, categoriesData] = await Promise.all([
                     api.getProducts(),
                     api.getCategories()
@@ -31,6 +33,8 @@ export const Home: React.FC = () => {
                 setCategories(categoriesWithProducts);
             } catch (err: any) {
                 console.error('Error cargando datos:', err);
+            } finally {
+                setLoading(false);
             }
         };
         fetchData();
@@ -92,7 +96,35 @@ export const Home: React.FC = () => {
     }, [products, categories, search, selectedCategory, sortOrder]);
 
 
-    // ... existing loading/error states ...
+    // Skeleton Components
+    const ProductSkeleton = () => (
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col h-full animate-pulse">
+            <div className="aspect-[4/3] bg-gray-200"></div>
+            <div className="p-4 flex-1 flex flex-col space-y-3">
+                <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+                <div className="mt-auto flex justify-between items-center pt-2">
+                    <div className="h-5 bg-gray-200 rounded w-1/4"></div>
+                    <div className="h-8 w-8 bg-gray-200 rounded-full"></div>
+                </div>
+            </div>
+        </div>
+    );
+
+    const CategorySkeleton = () => (
+        <div className="space-y-3">
+            <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-gray-200 rounded-xl animate-pulse"></div>
+                <div className="h-6 bg-gray-200 rounded w-48 animate-pulse"></div>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-4 gap-x-4">
+                {[1, 2, 3, 4, 5].map((i) => (
+                    <ProductSkeleton key={i} />
+                ))}
+            </div>
+        </div>
+    );
+
 
     return (
         <div className="space-y-8 pb-12">
@@ -136,7 +168,7 @@ export const Home: React.FC = () => {
                             </h2>
                         )}
                         <p className="text-sm text-gray-500 font-medium tracking-wide uppercase">
-                            {filteredProducts.length} Productos
+                            {!loading ? `${filteredProducts.length} Productos` : 'Cargando...'}
                         </p>
                     </div>
 
@@ -156,7 +188,12 @@ export const Home: React.FC = () => {
                 </div>
 
                 {/* Content Rendering Logic */}
-                {productsByCategory && !search && !selectedCategory ? (
+                {loading ? (
+                    // LOADING STATE
+                    <div className="space-y-12">
+                        {[1, 2].map(i => <CategorySkeleton key={i} />)}
+                    </div>
+                ) : productsByCategory && !search && !selectedCategory ? (
                     // GROUPED VIEW (Default Home)
                     <div className="space-y-12">
                         {Object.entries(productsByCategory).map(([categoryName, items], index) => {
