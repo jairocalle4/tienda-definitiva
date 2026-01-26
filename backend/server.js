@@ -8,23 +8,40 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+// In-memory Cache
+const cache = {
+    products: { data: null, lastFetch: 0 },
+    categories: { data: null, lastFetch: 0 },
+    config: { data: null, lastFetch: 0 },
+};
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
 // Routes
 
 // GET /api/config (WhatsApp number and Company Name)
 app.get('/api/config', async (req, res) => {
     try {
+        const now = Date.now();
+        if (cache.config.data && (now - cache.config.lastFetch < CACHE_DURATION)) {
+            return res.json(cache.config.data);
+        }
+
         const pool = await poolPromise;
         const result = await pool.request().query('SELECT TOP 1 NombreComercial, Telefono FROM ConfiguracionEmpresa');
 
+        let configData;
         if (result.recordset.length > 0) {
             const config = result.recordset[0];
-            res.json({
+            configData = {
                 appName: config.NombreComercial,
                 whatsappNumber: config.Telefono ? config.Telefono.replace(/\D/g, '') : '', // Strip non-digits
-            });
+            };
         } else {
-            res.json({ appName: 'Safari Web', whatsappNumber: '' });
+            configData = { appName: 'Safari Web', whatsappNumber: '' };
         }
+
+        cache.config = { data: configData, lastFetch: now };
+        res.json(configData);
     } catch (err) {
         res.status(500).send(err.message);
     }
@@ -33,6 +50,11 @@ app.get('/api/config', async (req, res) => {
 // GET /api/categories
 app.get('/api/categories', async (req, res) => {
     try {
+        const now = Date.now();
+        if (cache.categories.data && (now - cache.categories.lastFetch < CACHE_DURATION)) {
+            return res.json(cache.categories.data);
+        }
+
         const pool = await poolPromise;
         const result = await pool.request().query('SELECT DISTINCT c.Id, c.Nombre FROM Categorias c JOIN Productos p ON p.CategoriaId = c.Id WHERE c.EsActivo = 1 AND p.EsActivo = 1');
 
@@ -42,6 +64,7 @@ app.get('/api/categories', async (req, res) => {
             image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=500&auto=format&fit=crop&q=60' // Placeholder as DB doesn't have cat images
         }));
 
+        cache.categories = { data: categories, lastFetch: now };
         res.json(categories);
     } catch (err) {
         res.status(500).send(err.message);
@@ -51,26 +74,33 @@ app.get('/api/categories', async (req, res) => {
 // GET /api/products
 app.get('/api/products', async (req, res) => {
     try {
+        const now = Date.now();
+        if (cache.products.data && (now - cache.products.lastFetch < CACHE_DURATION)) {
+            console.log('Serving products from cache');
+            return res.json(cache.products.data);
+        }
+
         const pool = await poolPromise;
 
-        // Get Products
-        const productsResult = await pool.request().query(`
-      SELECT 
-        p.Id, p.Nombre, p.Descripcion, p.Precio, p.Stock, p.CategoriaId, p.UrlVideo, p.FotoUrl,
-        c.Nombre AS CategoriaNombre,
-        s.Nombre AS SubcategoriaNombre
-      FROM Productos p
-      LEFT JOIN Categorias c ON p.CategoriaId = c.Id
-      LEFT JOIN Subcategorias s ON p.SubcategoriaId = s.Id
-      WHERE p.EsActivo = 1
-    `);
-
-        // Get Images
-        const imagesResult = await pool.request().query(`
-      SELECT IdProducto, UrlImagen 
-      FROM ProductoImagenes
-      ORDER BY Orden
-    `);
+        // Optimized Query: Get Products and Images in parallel or combined
+        // For simplicity and to avoid complex mapping, we keep two queries but use the same pool connection
+        const [productsResult, imagesResult] = await Promise.all([
+            pool.request().query(`
+                SELECT 
+                    p.Id, p.Nombre, p.Descripcion, p.Precio, p.Stock, p.CategoriaId, p.UrlVideo, p.FotoUrl,
+                    c.Nombre AS CategoriaNombre,
+                    s.Nombre AS SubcategoriaNombre
+                FROM Productos p
+                LEFT JOIN Categorias c ON p.CategoriaId = c.Id
+                LEFT JOIN Subcategorias s ON p.SubcategoriaId = s.Id
+                WHERE p.EsActivo = 1
+            `),
+            pool.request().query(`
+                SELECT IdProducto, UrlImagen 
+                FROM ProductoImagenes
+                ORDER BY Orden
+            `)
+        ]);
 
         // Map images to products with robust null handling
         const products = productsResult.recordset.map(p => {
@@ -103,6 +133,7 @@ app.get('/api/products', async (req, res) => {
             };
         });
 
+        cache.products = { data: products, lastFetch: now };
         res.json(products);
     } catch (err) {
         console.error('Error in /api/products:', err);
